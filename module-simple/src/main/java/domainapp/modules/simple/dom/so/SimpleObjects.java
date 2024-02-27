@@ -1,5 +1,6 @@
 package domainapp.modules.simple.dom.so;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.Priority;
@@ -62,9 +63,9 @@ public class SimpleObjects {
 
     @Action(semantics = SemanticsOf.SAFE)
     public SimpleObjectViewModel findByNameViewModel(
-            @Name final String name
-    ) {
-        return new SimpleObjectViewModel(name);
+            final LocalDate date
+            ) {
+        return new SimpleObjectViewModel("");
     }
 
 

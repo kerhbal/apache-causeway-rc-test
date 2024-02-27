@@ -15,13 +15,19 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import domainapp.modules.simple.dom.testobject.TestObject;
+
+import lombok.EqualsAndHashCode;
 
 import org.springframework.lang.Nullable;
 
@@ -50,6 +56,8 @@ import org.apache.causeway.extensions.fullcalendar.applib.value.CalendarEvent;
 import org.apache.causeway.extensions.pdfjs.applib.annotations.PdfJsViewer;
 import org.apache.causeway.persistence.jpa.applib.integration.CausewayEntityListener;
 import org.apache.causeway.persistence.jpa.applib.types.BlobJpaEmbeddable;
+
+import static javax.persistence.FetchType.LAZY;
 
 import static org.apache.causeway.applib.annotation.SemanticsOf.IDEMPOTENT;
 import static org.apache.causeway.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE;
@@ -130,6 +138,12 @@ public class SimpleObject implements Comparable<SimpleObject>, CalendarEventable
     @Property(commandPublishing = Publishing.ENABLED, executionPublishing = Publishing.ENABLED)
     @PropertyLayout(fieldSetId = LayoutConstants.FieldSetId.DETAILS, sequence = "2")
     private String notes;
+
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "testObjectId", nullable = true)
+    @Getter @Setter
+    @PropertyLayout(fieldSetId = "testObject", sequence = "3")
+    private TestObject testObject;
 
     @AttributeOverrides({
             @AttributeOverride(name="name",    column=@Column(name="attachment_name")),
