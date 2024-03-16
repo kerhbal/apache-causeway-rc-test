@@ -25,7 +25,6 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import domainapp.modules.simple.dom.testobject.TestObject;
 
 import lombok.EqualsAndHashCode;
 
@@ -138,12 +137,6 @@ public class SimpleObject implements Comparable<SimpleObject>, CalendarEventable
     @Property(commandPublishing = Publishing.ENABLED, executionPublishing = Publishing.ENABLED)
     @PropertyLayout(fieldSetId = LayoutConstants.FieldSetId.DETAILS, sequence = "2")
     private String notes;
-
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "testObjectId", nullable = true)
-    @Getter @Setter
-    @PropertyLayout(fieldSetId = "testObject", sequence = "3")
-    private TestObject testObject;
 
     @AttributeOverrides({
             @AttributeOverride(name="name",    column=@Column(name="attachment_name")),

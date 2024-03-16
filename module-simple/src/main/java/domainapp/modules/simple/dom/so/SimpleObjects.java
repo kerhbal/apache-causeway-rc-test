@@ -63,9 +63,9 @@ public class SimpleObjects {
 
     @Action(semantics = SemanticsOf.SAFE)
     public SimpleObjectViewModel findByNameViewModel(
-            final LocalDate date
+            final String name
             ) {
-        return new SimpleObjectViewModel("");
+        return new SimpleObjectViewModel(name);
     }
 
 
