@@ -26,6 +26,10 @@ public class SimpleObjectViewModel {
     @Property
     protected String name;
 
+    public String title() {
+        return "my view";
+    }
+
     @XmlTransient
     @Collection
     public List<SimpleObjectDto> getSimpleObjectList(){

@@ -23,6 +23,10 @@ causeway:
       domain-object:
         editing: false
         entity-change-publishing: all
+      domain-object-layout:
+        table-decoration: none
+      collection-layout:
+        table-decoration: none
   core:
     meta-model:
       introspector:
@@ -72,8 +76,8 @@ causeway:
       js: scripts/application.js
 
       bookmarked-pages:
-        show-chooser: true
-        show-drop-down-on-footer: true
+        show-chooser: false
+        show-drop-down-on-footer: false
 
       max-title-length-in-standalone-tables: 0
       max-title-length-in-parented-tables: 0
@@ -81,10 +85,10 @@ causeway:
       themes:
         show-chooser: true
 
-      table:
-        decoration:
-          data-tables-net:
-            options: "info: false, pagingType: 'numbers'"
+#      table:
+#        decoration:
+#          data-tables-net:
+#            options: "info: false, pagingType: 'numbers'"
 
   testing:
     fixtures:
