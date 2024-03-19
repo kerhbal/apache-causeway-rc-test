@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.TypedQuery;
 
+import domainapp.modules.simple.dom.testobject.TestObject;
+
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
@@ -39,7 +41,20 @@ public class SimpleObjects {
     @ActionLayout(promptStyle = PromptStyle.DIALOG_SIDEBAR)
     public SimpleObject create(
             @Name final String name) {
-        return repositoryService.persist(SimpleObject.withName(name));
+
+        TestObject testObject = new TestObject();
+
+        testObject.setRandomname("randomname");
+
+        repositoryService.persist(testObject);
+
+        SimpleObject persist = SimpleObject.withName(name);
+
+        persist.setTestObject(testObject);
+
+        repositoryService.persist(persist);
+
+        return persist;
     }
 
 

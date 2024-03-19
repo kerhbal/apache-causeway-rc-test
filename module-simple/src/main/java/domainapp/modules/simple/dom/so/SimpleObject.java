@@ -142,7 +142,7 @@ public class SimpleObject implements Comparable<SimpleObject>, CalendarEventable
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "testObjectId", nullable = true)
     @Getter @Setter
-    @PropertyLayout(fieldSetId = "testObject", sequence = "3")
+    //@PropertyLayout(fieldSetId = "testObject", sequence = "3")
     private TestObject testObject;
 
     @AttributeOverrides({

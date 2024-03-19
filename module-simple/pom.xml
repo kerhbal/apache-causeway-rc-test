@@ -39,7 +39,6 @@
             <groupId>org.apache.causeway.core</groupId>
             <artifactId>causeway-applib</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.causeway.testing</groupId>
             <artifactId>causeway-testing-fakedata-applib</artifactId>

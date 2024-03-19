@@ -69,7 +69,7 @@
         <module>webapp-tests</module>
     </modules>
 
-    <profiles>
+    <!-- profiles>
         <profile>
             <id>staging</id>
             <activation>
@@ -98,5 +98,5 @@
                 </repository>
             </repositories>
         </profile>
-    </profiles>
+    </profiles-->
 </project>

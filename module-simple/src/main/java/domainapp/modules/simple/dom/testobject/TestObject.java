@@ -60,7 +60,7 @@ public class TestObject implements Comparable<TestObject> {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne(mappedBy = "testObject")
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "testObject")
     @Getter
     @Setter
     @PropertyLayout(fieldSetId = "simpleObject", sequence = "2")
@@ -69,6 +69,10 @@ public class TestObject implements Comparable<TestObject> {
 
     private final static Comparator<TestObject> comparator =
             Comparator.comparing(TestObject::getId);
+
+    @Column(length = Name.MAX_LEN, nullable = false, name = "randomname")
+    @Getter @Setter @ToString.Include
+    private String randomname;
 
     @Override
     public int compareTo(final TestObject other) {

@@ -69,7 +69,21 @@
     </build>
 
     <dependencies>
-
+        <dependency>
+            <groupId>javax.resource</groupId>
+            <artifactId>javax.resource-api</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <artifactId>unlogged-sdk</artifactId>
+            <groupId>video.bug</groupId>
+            <version>0.2.13</version>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>simpleapp-jpa-module-simple</artifactId>
