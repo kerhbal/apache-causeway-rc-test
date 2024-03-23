@@ -95,10 +95,13 @@ import domainapp.modules.simple.types.Notes;
 @DomainObjectLayout(
         tableDecorator = TableDecorator.DatatablesNet.class,
         bookmarking = BookmarkPolicy.AS_ROOT)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 @ToString(onlyExplicitlyIncluded = true)
 public class SimpleObject implements Comparable<SimpleObject>, CalendarEventable {
+
+    public SimpleObject(){
+        new Exception().printStackTrace();
+    }
 
     static final String NAMED_QUERY__FIND_BY_NAME_LIKE = "SimpleObject.findByNameLike";
 
@@ -139,10 +142,10 @@ public class SimpleObject implements Comparable<SimpleObject>, CalendarEventable
     @PropertyLayout(fieldSetId = LayoutConstants.FieldSetId.DETAILS, sequence = "2")
     private String notes;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY,optional=false)
     @JoinColumn(name = "testObjectId", nullable = true)
     @Getter @Setter
-    //@PropertyLayout(fieldSetId = "testObject", sequence = "3")
+    @PropertyLayout(fieldSetId = "testObject", sequence = "3")
     private TestObject testObject;
 
     @AttributeOverrides({

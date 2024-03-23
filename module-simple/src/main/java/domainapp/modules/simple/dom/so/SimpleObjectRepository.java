@@ -10,13 +10,14 @@ import javax.persistence.QueryHint;
 
 public interface SimpleObjectRepository extends JpaRepository<SimpleObject, Long> {
 
+
     List<SimpleObject> findByNameContaining(final String name);
 
     SimpleObject findByName(final String name);
 
 
-    @QueryHints(value = { @QueryHint(name = "eclipselink.join-fetch", value = "simpleObject.testObject"),
-                          @QueryHint(name = "eclipselink.join-fetch", value = "simpleObject.testObject.simpleObject")},
-            forCounting = false)
-    List<SimpleObject> findAll();
+//    @QueryHints(value = { @QueryHint(name = "eclipselink.join-fetch", value = "simpleObject.testObject"),
+//                          @QueryHint(name = "eclipselink.join-fetch", value = "simpleObject.testObject.simpleObject")},
+//            forCounting = false)
+//    List<SimpleObject> findAll();
 }
