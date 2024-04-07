@@ -14,6 +14,25 @@
     <name>SimpleApp (JPA) - Simple Module</name>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>com.ethlo.persistence.tools</groupId>
+                <artifactId>eclipselink-maven-plugin</artifactId>
+                <version>2.7.9.1</version>
+                <executions>
+                    <execution>
+                        <id>weave</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>weave</goal>
+                        </goals>
+                        <configuration>
+                            <basePackage>domainapp.modules.simple.dom</basePackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -34,7 +53,12 @@
     <dependencies>
 
         <!-- CAUSEWAY API -->
-
+<!--        <dependency>-->
+<!--            <groupId>com.ethlo.persistence.tools</groupId>-->
+<!--            <artifactId>eclipselink-maven-plugin</artifactId>-->
+<!--            <version>2.7.9.1</version>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.causeway.core</groupId>
             <artifactId>causeway-applib</artifactId>

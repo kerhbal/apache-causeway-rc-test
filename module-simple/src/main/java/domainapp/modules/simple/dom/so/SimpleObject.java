@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import domainapp.modules.simple.dom.testobject.TestObject;
 
 import lombok.EqualsAndHashCode;
-
+import domainapp.modules.simple.types.Name;
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -99,9 +99,6 @@ import domainapp.modules.simple.types.Notes;
 @ToString(onlyExplicitlyIncluded = true)
 public class SimpleObject implements Comparable<SimpleObject>, CalendarEventable {
 
-    public SimpleObject(){
-        new Exception().printStackTrace();
-    }
 
     static final String NAMED_QUERY__FIND_BY_NAME_LIKE = "SimpleObject.findByNameLike";
 

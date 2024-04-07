@@ -19,7 +19,7 @@ import org.apache.causeway.core.config.presets.CausewayPresets;
     AppManifest.class
 //    , XrayEnable.class
 })
-@EnableLoadTimeWeaving
+
 @EntityScan("domainapp.modules.simple.dom.so")
 public class SimpleApp extends SpringBootServletInitializer {
 
@@ -45,6 +45,7 @@ public class SimpleApp extends SpringBootServletInitializer {
             SimpleObject.class.getDeclaredMethod("_persistence_checkFetchedForSet", String.class);
             System.out.println("LTW-created method present SimpleObject,m");
         } catch (NoSuchMethodException e) {
+
             System.out.println("LTW-created method not present for SimpleObject");
         } catch (SecurityException e) {
             throw new RuntimeException(e);
