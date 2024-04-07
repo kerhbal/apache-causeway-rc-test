@@ -1,14 +1,11 @@
 package domainapp.modules.simple.dom.so;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.TypedQuery;
-
-import domainapp.modules.simple.dom.testobject.TestObject;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -21,20 +18,25 @@ import org.apache.causeway.applib.query.Query;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.persistence.jpa.applib.services.JpaSupportService;
 
-import lombok.RequiredArgsConstructor;
-
 import domainapp.modules.simple.SimpleModule;
+import domainapp.modules.simple.dom.testobject.TestObject;
 import domainapp.modules.simple.types.Name;
 
 @Named(SimpleModule.NAMESPACE + ".SimpleObjects")
 @DomainService(nature = NatureOfService.VIEW)
 @Priority(PriorityPrecedence.EARLY)
-@RequiredArgsConstructor(onConstructor_ = {@Inject} )
 public class SimpleObjects {
 
     final RepositoryService repositoryService;
     final JpaSupportService jpaSupportService;
     final SimpleObjectRepository simpleObjectRepository;
+
+    @Inject
+    public SimpleObjects(RepositoryService repositoryService, JpaSupportService jpaSupportService, SimpleObjectRepository simpleObjectRepository) {
+        this.repositoryService = repositoryService;
+        this.jpaSupportService = jpaSupportService;
+        this.simpleObjectRepository = simpleObjectRepository;
+    }
 
 
     @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
@@ -64,7 +66,7 @@ public class SimpleObjects {
             @Name final String name) {
         return repositoryService.allMatches(
                 Query.named(SimpleObject.class, SimpleObject.NAMED_QUERY__FIND_BY_NAME_LIKE)
-                     .withParameter("name", "%" + name + "%"));
+                        .withParameter("name", "%" + name + "%"));
     }
 
 
@@ -72,23 +74,21 @@ public class SimpleObjects {
     @ActionLayout(promptStyle = PromptStyle.DIALOG_SIDEBAR)
     public List<SimpleObject> findByName(
             @Name final String name
-            ) {
+    ) {
         return simpleObjectRepository.findByNameContaining(name);
     }
 
     @Action(semantics = SemanticsOf.SAFE)
     public SimpleObjectViewModel findByNameViewModel(
             final String name
-            ) {
+    ) {
         return new SimpleObjectViewModel(name);
     }
-
 
 
     public SimpleObject findByNameExact(final String name) {
         return simpleObjectRepository.findByName(name);
     }
-
 
 
     @Action(semantics = SemanticsOf.SAFE)
@@ -97,18 +97,17 @@ public class SimpleObjects {
     }
 
 
-
     public void ping() {
         jpaSupportService.getEntityManager(SimpleObject.class)
-            .mapEmptyToFailure()
-            .mapSuccessAsNullable(entityManager -> {
-                final TypedQuery<SimpleObject> q = entityManager.createQuery(
-                                "SELECT p FROM SimpleObject p ORDER BY p.name",
-                                SimpleObject.class)
-                        .setMaxResults(1);
-                return q.getResultList();
-            })
-        .ifFailureFail();
+                .mapEmptyToFailure()
+                .mapSuccessAsNullable(entityManager -> {
+                    final TypedQuery<SimpleObject> q = entityManager.createQuery(
+                                    "SELECT p FROM SimpleObject p ORDER BY p.name",
+                                    SimpleObject.class)
+                            .setMaxResults(1);
+                    return q.getResultList();
+                })
+                .ifFailureFail();
     }
 
 }
