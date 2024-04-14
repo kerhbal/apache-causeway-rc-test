@@ -6,9 +6,16 @@ import domainapp.modules.simple.types.Name;
 
 import lombok.*;
 
+import org.apache.causeway.applib.annotation.BookmarkPolicy;
+import org.apache.causeway.applib.annotation.DomainObject;
+import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Publishing;
+import org.apache.causeway.applib.annotation.TableDecorator;
 import org.apache.causeway.applib.jaxb.PersistentEntityAdapter;
 import org.apache.causeway.persistence.jpa.applib.integration.CausewayEntityListener;
 
+import javax.inject.Named;
 import javax.persistence.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Comparator;
@@ -24,12 +31,12 @@ import java.util.Comparator;
 )
 
 @EntityListeners(CausewayEntityListener.class)
-//@Named(SimpleModule.NAMESPACE + ".TestObject")
-//@DomainObject(entityChangePublishing = Publishing.ENABLED)
-//@DomainObjectLayout(
-//        tableDecorator = TableDecorator.DatatablesNet.class,
-//        bookmarking = BookmarkPolicy.AS_ROOT)
-//@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Named(SimpleModule.NAMESPACE + ".TestObject")
+@DomainObject(entityChangePublishing = Publishing.ENABLED)
+@DomainObjectLayout(
+        tableDecorator = TableDecorator.DatatablesNet.class,
+        bookmarking = BookmarkPolicy.AS_ROOT)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @XmlJavaTypeAdapter(PersistentEntityAdapter.class)
 @ToString(onlyExplicitlyIncluded = true)
 public class TestObject implements Comparable<TestObject> {
@@ -40,10 +47,10 @@ public class TestObject implements Comparable<TestObject> {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY,mappedBy = "testObject")
+    @ManyToOne(fetch = FetchType.LAZY)
     @Getter
     @Setter
-//    @PropertyLayout(fieldSetId = "simpleObject", sequence = "2")
+    @PropertyLayout(fieldSetId = "simpleObject", sequence = "2")
     @EqualsAndHashCode.Include
     private SimpleObject simpleObject;
 

@@ -3,6 +3,7 @@ package domainapp.modules.simple.dom.so;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -139,11 +141,10 @@ public class SimpleObject implements Comparable<SimpleObject>, CalendarEventable
     @PropertyLayout(fieldSetId = LayoutConstants.FieldSetId.DETAILS, sequence = "2")
     private String notes;
 
-    @OneToOne(fetch = LAZY,optional=false)
-    @JoinColumn(name = "testObjectId", nullable = true)
+    @OneToMany(fetch = LAZY,mappedBy = "simpleObject")
     @Getter @Setter
     @PropertyLayout(fieldSetId = "testObject", sequence = "3")
-    private TestObject testObject;
+    private List<TestObject> testObject;
 
     @AttributeOverrides({
             @AttributeOverride(name="name",    column=@Column(name="attachment_name")),

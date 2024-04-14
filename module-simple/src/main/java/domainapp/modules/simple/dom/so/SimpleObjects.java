@@ -44,17 +44,25 @@ public class SimpleObjects {
     public SimpleObject create(
             @Name final String name) {
 
+        SimpleObject persist = SimpleObject.withName(name);
+
+        repositoryService.persist(persist);
+
         TestObject testObject = new TestObject();
 
         testObject.setRandomname("randomname");
 
+        testObject.setSimpleObject(persist);
+
         repositoryService.persist(testObject);
 
-        SimpleObject persist = SimpleObject.withName(name);
+        testObject = new TestObject();
 
-        persist.setTestObject(testObject);
+        testObject.setRandomname("randomname 2");
 
-        repositoryService.persist(persist);
+        testObject.setSimpleObject(persist);
+
+        repositoryService.persist(testObject);
 
         return persist;
     }
