@@ -73,6 +73,7 @@
 
         <AsyncRoot level="INFO">
             <AppenderRef ref="DataDog" />
+            <AppenderRef ref="Console" />
         </AsyncRoot>
     </Loggers>
 </Configuration>
