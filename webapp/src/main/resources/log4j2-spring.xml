@@ -12,6 +12,19 @@
         <Console name="Console" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" />
         </Console>
+        <Http name="DataDog" url="https://http-intake.logs.us5.datadoghq.com/v1/input?host=${sys:hostName}&amp;ddsource=Mulesoft&amp;service=loggingApp&amp;ddtags=env:Dev&amp;app=helloWorld_myapp">
+
+            <Property name="DD-API-KEY">9f008891cf25f44ccfb96700cb5f60eb</Property>
+            <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
+                <KeyValuePair key="host" value="${sys:hostName}" />
+                <KeyValuePair key="appName" value="DataDog Cloudhub POC" />
+                <KeyValuePair key="apiType" value="sys" />
+                <KeyValuePair key="ddsource" value="mule" />
+                <KeyValuePair key="service" value="${sys:dd.service}" />
+                <KeyValuePair key="correlationId" value="$${ctx:correlationId:-}" />
+                <KeyValuePair key="datadog.site" value="datadoghq.com" />
+            </JSONLayout>
+        </Http>
     </Appenders>
     <Loggers>
 
@@ -58,8 +71,8 @@
         <logger name="org.apache.causeway.core.runtimeservices.publish.ExecutionPublisherDefault" level="debug"/>
         <logger name="org.apache.causeway.applib.services.queryresultscache.QueryResultsCache" level="debug"/>
 
-        <Root level="info">
-            <AppenderRef ref="Console" />
-        </Root>
+        <AsyncRoot level="INFO">
+            <AppenderRef ref="DataDog" />
+        </AsyncRoot>
     </Loggers>
 </Configuration>
