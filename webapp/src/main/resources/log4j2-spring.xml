@@ -12,9 +12,10 @@
         <Console name="Console" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" />
         </Console>
-        <Http name="DataDog" url="https://http-intake.logs.us5.datadoghq.com/v1/input?host=${sys:hostName}&amp;ddsource=Mulesoft&amp;service=loggingApp&amp;ddtags=env:Dev&amp;app=helloWorld_myapp">
+        <Http name="DataDog" url="https://http-intake.logs.datadoghq.com/v1/input?host=${sys:hostName}&amp;ddsource=Mulesoft&amp;service=ioms&amp;ddtags=env:Dev&amp;app=ioms">
 
-            <Property name="DD-API-KEY">9f008891cf25f44ccfb96700cb5f60eb</Property>
+            <Property name="DD-API-KEY">${env:DD_API_KEY}</Property>
+
             <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
                 <KeyValuePair key="host" value="${sys:hostName}" />
                 <KeyValuePair key="appName" value="DataDog Cloudhub POC" />
@@ -22,7 +23,7 @@
                 <KeyValuePair key="ddsource" value="mule" />
                 <KeyValuePair key="service" value="${sys:dd.service}" />
                 <KeyValuePair key="correlationId" value="$${ctx:correlationId:-}" />
-                <KeyValuePair key="datadog.site" value="datadoghq.com" />
+                <KeyValuePair key="datadog.site" value="${env:DD_KEY}" />
             </JSONLayout>
         </Http>
     </Appenders>
