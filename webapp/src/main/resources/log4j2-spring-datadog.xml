@@ -12,6 +12,19 @@
         <Console name="Console" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" />
         </Console>
+        <Http name="DataDog" url="https://http-intake.logs.us5.datadoghq.com/v1/input?host=${sys:hostName}&amp;ddsource=ioms&amp;service=ioms-web&amp;ddtags=env:dev&amp;app=ioms">
+
+            <Property name="DD-API-KEY">${env:DD_API_KEY}</Property>
+
+            <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
+                <KeyValuePair key="host" value="${sys:hostName}" />
+                <KeyValuePair key="appName" value="IOMS" />
+                <KeyValuePair key="apiType" value="sys" />
+                <KeyValuePair key="ddsource" value="ioms" />
+                <KeyValuePair key="service" value="${sys:dd.service}" />
+                <KeyValuePair key="correlationId" value="$${ctx:correlationId:-}" />
+            </JSONLayout>
+        </Http>
     </Appenders>
     <Loggers>
 
@@ -58,8 +71,9 @@
         <logger name="org.apache.causeway.core.runtimeservices.publish.ExecutionPublisherDefault" level="debug"/>
         <logger name="org.apache.causeway.applib.services.queryresultscache.QueryResultsCache" level="debug"/>
 
-        <Root level="info">
+        <AsyncRoot level="INFO">
+            <AppenderRef ref="DataDog" />
             <AppenderRef ref="Console" />
-        </Root>
+        </AsyncRoot>
     </Loggers>
 </Configuration>

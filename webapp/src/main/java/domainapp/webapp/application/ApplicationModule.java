@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Import;
 
 import domainapp.modules.simple.SimpleModule;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 @Configuration
 @Import(SimpleModule.class)
 @ComponentScan
@@ -17,7 +20,13 @@ public class ApplicationModule {
 
     @Bean
     MeterRegistryCustomizer<MeterRegistry> commonTags() {
-        return r -> r.config().commonTags("host", "myapp-dev");
+        return r -> {
+            try {
+                r.config().commonTags("host", "ioms"+InetAddress.getLocalHost().getHostName());
+            } catch (UnknownHostException e) {
+                throw new RuntimeException(e);
+            }
+        };
     }
 
 }
